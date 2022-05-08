@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const path = require('path')
+// dotenv
+require('dotenv').config({path:'.env'})
+// dotenv
 
 const app = express()
 app.use(morgan('dev'))
@@ -34,9 +37,12 @@ app.get('/', (req, res) => {
 })
 
 const PORT = process.env.PORT || 4000
+
+console.log(process.env.dbUsername);
+
 app.listen(PORT, () => {
-    console.log(`SERVER is RUNNING ON PORT ${PORT}`)
-    mongoose.connect(`mongodb://${process.env.dbUsername}:${process.env.dbPassword}@ds261116.mlab.com:61116/money-app`,
+    console.log(`SERVER is RUNNING ON PORT ${PORT}`)    
+    mongoose.connect(`mongodb+srv://${process.env.dbUsername}:${process.env.dbPassword}@cluster0.gklfs.mongodb.net/moneyManagementDb?retryWrites=true&w=majority`,
         { useNewUrlParser: true },
         () => {
         console.log('Database Connected...')
